@@ -146,4 +146,101 @@ CALL insert_title(10011, 'AI Specialist 46', '2023-06-26');
 -- Get the list of titles from the 'titles' table with titles like AI
 SELECT * FROM titles WHERE title LIKE '%AI%'; 
 
+-- Get the list of departments
+SELECT * FROM departments;
+
+-- get the marketing department details
+SELECT * FROM  departments 
+WHERE 
+dept_name  =  'Marketing';
+
+-- get the marketing department details with dept_no
+SELECT * FROM  departments
+WHERE
+dept_no  =  'd001';
+
+-- Get the list of records with following departments Marketing, Production, Finance
+SELECT * FROM  departments
+WHERE
+dept_name IN ('marketing','Production','Finance');
+
+-- Example for OR - Logical Operator for the same scenario
+SELECT 
+  * 
+FROM 
+  departments 
+WHERE 
+  (dept_name = 'marketing') 
+  OR (dept_name = 'Production') 
+  OR (dept_name = 'Finance')
+
+-- Example for AND - Logical Operator for the same scenario
+
+SELECT 
+  * 
+FROM 
+  departments 
+WHERE 
+  (dept_name = 'marketing') 
+  AND (dept_name = 'Production') 
+  AND (dept_name = 'Finance')
+
+
+-- Get the list of records other than the following departments Marketing, Production, Finance
+
+SELECT * FROM  departments
+WHERE
+dept_name NOT IN ('marketing','Production','Finance');
+
+-- Get the maximum, minimum and average salary for employees in the 'Finance' department
+SELECT
+  MAX(salary) 'Maximum Salary',
+  MIN(salary) 'Minimum Salary',
+  AVG(salary) 'Average Salary'
+FROM
+  salaries
+
+
+-- Retrieve the salary records with salary lesser than average salary
+SELECT count(*) FROM salaries
+WHERE salary < 63811;
+
+-- Retrieve the salary records with salary more than average salary
+SELECT count(*) FROM salaries
+WHERE salary > 63811;
+
+-- Get all the salary records with salary in the range of 40000 and 60000
+SELECT * FROM salaries
+WHERE salary BETWEEN 40000 AND 60000;
+
+-- Get all the salary records with salary not in the range of 40000 and 60000
+SELECT * FROM salaries
+WHERE salary NOT BETWEEN 40000 AND 60000;
+
+-- Get the records with salary equal to 158220
+SELECT * FROM salaries
+WHERE salary = 158220;
+
+select * from employees
+where emp_no=43624;
+
+-- get the record with emp_no 43624
+SELECT * FROM employees
+WHERE emp_no = 43624;
+
+-- get the record with emp_no 43624 from salaries
+SELECT * FROM salaries
+WHERE emp_no = 43624;
+
+-- generate a report with employee number equals 43624, first name, last name and salary 
+SELECT e.emp_no 'Employee Number',
+       e.first_name 'First Name',
+       e.last_name 'Last Name',
+       s.salary 'Salary',
+       s.from_date 'From Date',
+       s.to_date 'To Date'
+FROM employees e
+JOIN salaries s ON e.emp_no = s.emp_no
+WHERE e.emp_no = 43624;
+
 
