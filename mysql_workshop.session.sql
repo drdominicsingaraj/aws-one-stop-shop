@@ -338,3 +338,52 @@ DROP TABLE emp_temporary;
 
 select * from emp_temp;
 select * from salaries_temp;
+
+-- get the employee record with number 2147483647
+SELECT * FROM employees WHERE emp_no = 2147483647;
+
+-- Generate report with the combination of data from emp_temp and salaries_temp using right join
+
+select * from emp_temp; 
+-- 43624, 100001, 555505
+
+select distinct emp_no from salaries_temp;
+-- 43624, 100001, 2147483647
+
+-- Left table - emp_temp and right table - salaries_temp
+
+-- Join emp_temp with salary_temp using right join 
+SELECT s.emp_no, e.birth_date, e.first_name, e.last_name, s.salary, s.from_date, s.to_date 
+FROM emp_temp e
+RIGHT JOIN salaries_temp s
+ON e.emp_no = s.emp_no
+
+select * from emp_temp;
+
+create table emp_temp_2
+as
+select * from emp_temp;
+
+select * from emp_temp_2;
+
+-- Two tables emp_temp and emp_temp_2 with same data
+
+-- union data from two tables
+
+select * from emp_temp
+union
+select * from emp_temp_2;
+
+select * from emp_temp
+union all
+select * from emp_temp_2;
+
+-- Full Outer Join
+
+select s.emp_no, e.birth_date, e.first_name, e.last_name, s.salary, s.from_date, s.to_date  from emp_temp e
+left join salaries_temp s
+on e.emp_no = s.emp_no
+union
+select s.emp_no, e.birth_date, e.first_name, e.last_name, s.salary, s.from_date, s.to_date  from emp_temp e
+right join salaries_temp s
+on e.emp_no = s.emp_no
