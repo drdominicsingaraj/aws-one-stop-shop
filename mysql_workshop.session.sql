@@ -244,3 +244,97 @@ JOIN salaries s ON e.emp_no = s.emp_no
 WHERE e.emp_no = 43624;
 
 
+INSERT INTO employees (
+    emp_no,
+    birth_date,
+    first_name,
+    last_name,
+    gender,
+    hire_date
+  )
+VALUES (
+    555505,
+    '1886-03-26',
+    'Amir',
+    'Hussain',
+    'M',
+    '2024-03-26'
+  );
+
+select * from employees
+where emp_no=555505;
+
+--Add a multiple line comment
+/*
+
+https://www.w3schools.com/mysql/mysql_check.asp
+
+MySQL DEFAULT Constraint
+------------------------
+The DEFAULT constraint is used to set a default value for a column.
+
+The default value will be added to all new records, if no other value is specified.
+
+MySQL CHECK Constraint
+----------------------
+The CHECK constraint is used to limit the value range that can be placed in a column.
+
+If you define a CHECK constraint on a column it will allow only certain values for this column.
+
+If you define a CHECK constraint on a table it can limit the values in certain columns based on values in other columns in the row.
+*/
+
+
+-- generate a report with employee number equals 43624, first name, last name and salary using Inner Join
+SELECT e.emp_no 'Employee Number',
+       e.first_name 'First Name',
+       e.last_name 'Last Name',
+       s.salary 'Salary',
+       s.from_date 'From Date',
+       s.to_date 'To Date'
+FROM employees e
+JOIN salaries s ON e.emp_no = s.emp_no
+WHERE e.emp_no = 555505;
+
+-- Result : No data
+
+-- generate a report with employee number equals 43624, first name, last name and salary using Inner Join
+SELECT e.emp_no 'Employee Number',
+       e.first_name 'First Name',
+       e.last_name 'Last Name',
+       s.salary 'Salary',
+       s.from_date 'From Date',
+       s.to_date 'To Date'
+FROM employees e
+LEFT JOIN salaries s ON e.emp_no = s.emp_no
+WHERE e.emp_no in (555505,43624,100001);
+
+-- ANSI SQL
+
+DESCRIBE salaries;
+
+--Store the results of query in a temporary table
+
+CREATE TABLE emp_temp AS
+SELECT *
+FROM employees
+WHERE emp_no in (555505,
+                 43624,
+                 100001);
+
+select * from emp_temp;
+
+CREATE TABLE salaries_temp AS
+SELECT *
+FROM salaries
+WHERE emp_no in (555505,
+                 43624,
+                 100001);
+
+select * from salaries_temp;
+
+-- delete a table named employees_temporary
+DROP TABLE emp_temporary;
+
+select * from emp_temp;
+select * from salaries_temp;
