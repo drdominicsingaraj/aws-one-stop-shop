@@ -439,7 +439,7 @@ JOIN dept_emp de ON e.emp_no = de.emp_no
 JOIN departments d ON de.dept_no = d.dept_no
 WHERE d.dept_name = 'Marketing';
 
--- Get the number of employees in each department
+-- Get the number of employees in each department other than d007 and d004
 SELECT dept_no,
        COUNT(DISTINCT emp_no) 'No of Employees'
 FROM dept_emp
@@ -448,9 +448,49 @@ WHERE dept_no in ('d007',
 GROUP BY dept_no
 HAVING COUNT(DISTINCT emp_no) > 50000;
 
+-- Get the number of employees in each department and sort it by dept_no descending order
+SELECT dept_no,
+       COUNT(DISTINCT emp_no) 'No of Employees'
+FROM dept_emp
+GROUP BY dept_no
+ORDER BY dept_no DESC;
+
+-- Wild card search
+-- % or _
 
 
 
+SELECT upper(emp.first_name),
+       upper(emp.last_name),
+       concat(first_name,' ',last_name) as 'Full Name',
+       de.dept_no as 'Department Number',
+       d.dept_name 'Department Name',
+       SUBSTRING(first_name,1,4)
+FROM employees emp
+JOIN dept_emp de ON emp.emp_no=de.emp_no
+JOIN departments d ON de.dept_no=d.dept_no
+WHERE emp.first_name='Georgi'
+  AND emp.last_name like'B%'
+  AND d.dept_name='Sales';
+
+-- substring syntax
+-- SUBSTRING(string, start, length)
+
+SELECT SUBSTRING("SQL Tutorial", 1, 3) AS ExtractString;
+
+
+SELECT upper(emp.first_name),
+       upper(emp.last_name),
+       concat(first_name,' ',last_name) as 'Full Name',
+       length(last_name),
+       de.dept_no as 'Department Number',
+       d.dept_name 'Department Name',
+       SUBSTRING(first_name,1,4)
+FROM employees emp
+JOIN dept_emp de ON emp.emp_no=de.emp_no
+JOIN departments d ON de.dept_no=d.dept_no
+WHERE emp.first_name='Georgi'
+  AND d.dept_name='Sales';
 
 
 
