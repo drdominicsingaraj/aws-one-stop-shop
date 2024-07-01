@@ -387,3 +387,70 @@ union
 select s.emp_no, e.birth_date, e.first_name, e.last_name, s.salary, s.from_date, s.to_date  from emp_temp e
 right join salaries_temp s
 on e.emp_no = s.emp_no
+
+--------------------------- SORTING-----------------------------------------
+
+-- Get the list of departments sorted by dept_no
+SELECT * FROM departments
+ORDER BY dept_no asc;
+
+-- Get the list of departments sorted by dept_no descending order
+SELECT * FROM departments
+ORDER BY dept_no DESC;
+
+--------------------------- SORTING-----------------------------------------
+
+select * from departments where dept_no in ('d001', 'd002', 'd003');
+
+select dept_no from departments where dept_name in ('Marketing', 'Finance', 'Human Resources');
+
+-- 'd001','d002','d003'
+
+select * from dept_emp where dept_no in ('d001', 'd002', 'd003');
+
+SELECT *
+FROM dept_emp
+WHERE dept_no in
+    (SELECT dept_no
+     FROM departments
+     WHERE dept_name in ('Marketing',
+                         'Finance',
+                         'Human Resources'));
+
+-- For additional examples : https://www.sqltutorial.org/sql-subquery/
+
+-- Get the number of employees in each department
+SELECT COUNT(distinct emp_no) 'No of Employees' from employees;
+
+-- Get the employees who are part of Marketing department
+SELECT * FROM employees 
+WHERE emp_no IN
+    (SELECT emp_no
+     FROM dept_emp
+     WHERE dept_no =
+         (SELECT dept_no
+          FROM departments
+          WHERE dept_name = 'Marketing'));
+
+
+-- Get the employees who are part of Marketing department using joins
+SELECT * FROM employees e
+JOIN dept_emp de ON e.emp_no = de.emp_no
+JOIN departments d ON de.dept_no = d.dept_no
+WHERE d.dept_name = 'Marketing';
+
+-- Get the number of employees in each department
+SELECT dept_no,
+       COUNT(DISTINCT emp_no) 'No of Employees'
+FROM dept_emp
+WHERE dept_no in ('d007',
+                  'd004')
+GROUP BY dept_no
+HAVING COUNT(DISTINCT emp_no) > 50000;
+
+
+
+
+
+
+
