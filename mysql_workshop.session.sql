@@ -492,5 +492,176 @@ JOIN departments d ON de.dept_no=d.dept_no
 WHERE emp.first_name='Georgi'
   AND d.dept_name='Sales';
 
+-- Data definition language (DDL) - CREATE, ALTER, DROP
+
+-- CREATE - Create a new table
+
+CREATE TABLE table_name (
+    column_name data_type,
+    column_name data_type,
+    ...
+);
+
+
+/* Generate a table with name Products with fields like 
+  ProductNumber with datatype varchar, 
+  ProductName of data type varchar, 
+  ManufacturingDate of data type date
+  ExpiryDate of data type date
+  ProductDescription of data type varchar
+  Price of data type decimal
+  quantityInStock of data type integer
+  Supplier of data type varchar
+  SerialNumber of data type varchar
+  Category of data type varchar
+  SubCategory of data type varchar
+  TaxRate of data type decimal
+  ManufactureCountry of data type varchar
+  Manufacturer of data type varchar
+  ProductOwner of data type varchar
+  ProductStatus of data type varchar
+  ProductReview of data type varchar
+  ProductSite of data type varchar
+  ProductSupport of data type varchar
+  ProductSupportEmail of data type varchar
+  Active of data type varchar
+  Notes of data type varchar
+  ProductImage of data type varchar
+  ProductUrl of data type varchar
+  ProductTags of data type varchar
+  ProductRating of data type varchar
+  ProductReviewUrl of data type varchar
+  ProductReviewDate of data type date
+  ProductReviewBy of data type varchar  
+*/
+
+
+CREATE TABLE Products (
+    ProductNumber VARCHAR(255),
+    ProductName VARCHAR(255),
+    ManufacturingDate DATE,
+    ExpiryDate DATE,
+    ProductDescription VARCHAR(255),
+    Price DECIMAL(10,2),
+    quantityInStock INT,
+    Supplier VARCHAR(255),
+    SerialNumber VARCHAR(255),
+    Category VARCHAR(255),
+    SubCategory VARCHAR(255),
+    TaxRate DECIMAL(10, 2),
+    ManufactureCountry VARCHAR(255),
+    Manufacturer VARCHAR(255),
+    ProductOwner VARCHAR(255),
+    ProductStatus VARCHAR(255),
+    ProductReview VARCHAR(255),
+    ProductSite VARCHAR(255),
+    ProductSupport VARCHAR(255),
+    ProductSupportEmail VARCHAR(255),
+    Active VARCHAR(255),
+    Notes VARCHAR(255),
+    ProductImage VARCHAR(255),
+    ProductUrl VARCHAR(255),
+    ProductTags VARCHAR(255),
+    ProductRating VARCHAR(255),
+    ProductReviewUrl VARCHAR(255),
+    ProductReviewDate DATE,
+    ProductReviewBy VARCHAR(255)
+);
+
+-- Insert data into the table
+
+insert into table_name (column1, column2, ...)
+VALUES (value1, value2, ...) 
+GROUP BY column_name(s)
+ORDER BY column_name(s) ASC|DESC;
+LIMIT M, N;
+
+-- insert data into the Products table
+
+insert into Products (
+        ProductNumber,
+        ProductName,
+        ManufacturingDate,
+        ExpiryDate,
+        ProductDescription,
+        Price,
+        quantityInStock,
+        Supplier,
+        SerialNumber,
+        Category,
+        SubCategory,
+        TaxRate,
+        ManufactureCountry,
+        Manufacturer
+        ProductOwner,
+        ProductStatus,
+        ProductReview,
+        ProductSite,
+        ProductSupport,
+        ProductSupportEmail,
+        Active,
+        Notes,
+        ProductImage,
+        ProductUrl,
+        ProductTags,
+        ProductRating,
+        ProductReviewUrl,
+        ProductReviewDate,
+        ProductReviewBy
+    )
+
+
+-- Update data in the table
+
+/*
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+*/
+
+-- update products table with ManufacturingDate as current date for the product number P001
+UPDATE Products
+SET ManufacturingDate = CURRENT_DATE(),
+    ExpiryDate = DATE_ADD(ManufacturingDate, INTERVAL 365 DAY)
+WHERE ProductNumber = 'P001';
+
+-- delete the product with product number P001
+DELETE FROM Products
+WHERE ProductNumber = 'P001';
+
+-- add primary key constraint to the Products table
+ALTER TABLE Products
+ADD PRIMARY KEY (ProductNumber);
+
+
+-- truncate table products
+TRUNCATE TABLE Products;
+
+select * from Products
+where ManufacturingDate is not null;
+
+select * from Products
+where ManufacturingDate is null;
+
+-- wild card searches
+
+-- Get all the records with product number starting with letter T
+SELECT * FROM Products WHERE ProductNumber LIKE 'T%';
+
+-- Get all the records with product number starting with letter T followed by three characters only
+SELECT * FROM Products WHERE ProductNumber LIKE 'T___';
+
+-- Get all the records with product number starting with letter T followed by number 1 or 2 or 3
+SELECT * FROM Products WHERE ProductNumber LIKE 'T1' or ProductNumber LIKE 'T2' OR ProductNumber LIKE 'T3';
+
+SELECT * FROM Products WHERE ProductNumber LIKE 'T[123]'
+
+SELECT * FROM Products WHERE 
+ProductNumber LIKE 'T_' or 
+ProductNumber LIKE 'T_' OR 
+ProductNumber LIKE 'T_';
+
+SELECT * FROM Products WHERE 
+ProductNumber LIKE 'T_';
 
 
