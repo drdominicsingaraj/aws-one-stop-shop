@@ -665,3 +665,56 @@ SELECT * FROM Products WHERE
 ProductNumber LIKE 'T_';
 
 
+-- Views, Stored Procedures, and Indexing
+
+-- Generate a report with top 10 highly paid employee records
+
+-- Create a view for the above query
+
+CREATE VIEW top_10_paid_employees_demo AS
+SELECT e.emp_no,
+       e.birth_date,
+       e.first_name,
+       e.last_name,
+       s.salary,
+       s.from_date,
+       s.to_date
+FROM employees e
+JOIN salaries s ON e.emp_no = s.emp_no
+ORDER BY s.salary DESC
+LIMIT 10;
+
+-- get the list of top 10 highly paid employees
+SELECT * FROM top_10_paid_employees_demo;
+
+drop view top_10_paid_employees_demo
+
+-- Generate a table named Orders with order number incremented automatically along with a few fields like  product number,order date,price, total, quantity, tax
+CREATE TABLE Orders (
+    OrderNumber INT AUTO_INCREMENT PRIMARY KEY,
+    ProductNumber VARCHAR(255),
+    OrderDate DATE,
+    Price DECIMAL(10, 2),
+    Total DECIMAL(10, 2),
+    Quantity INT,
+    Tax DECIMAL(10, 2)
+);
+
+
+INSERT INTO Orders (
+    ProductNumber,
+    OrderDate,
+    Price,
+    Total,
+    Quantity,
+    Tax
+  )
+VALUES (
+    'P001',
+    CURRENT_DATE,
+    10.50,
+    20,
+    5,
+    10
+  );
+
