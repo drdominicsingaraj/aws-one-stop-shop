@@ -10,6 +10,7 @@ Terraform is an **infrastructure as code** tool that allows you to:
 
 Terraform is versatile, supporting various platforms and services through **providers**. These providers enable Terraform to interact with APIs from different cloud providers and services, such as AWS, Azure, and Google Cloud Platform. It's a powerful tool for managing infrastructure consistently and repeatably! 😊
 
+``` HCL
 terraform {
   required_providers {
     aws = {
@@ -22,3 +23,4 @@ terraform {
 provider "aws" {
   region = "us-west-2"
 }
+```
