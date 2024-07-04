@@ -718,3 +718,57 @@ VALUES (
     10
   );
 
+
+SELECT e.emp_no,
+       e.birth_date,
+       e.first_name,
+       e.last_name,
+       s.salary,
+       s.from_date,
+       s.to_date
+FROM employees e
+JOIN salaries s ON e.emp_no = s.emp_no
+ORDER BY s.salary DESC
+LIMIT 10;
+
+-- create a stored procedure to get the list of top 10 highly paid employees
+
+CREATE PROCEDURE top_10_paid_employees()
+BEGIN
+  SELECT e.emp_no,
+         e.birth_date,
+         e.first_name,
+         e.last_name,
+         s.salary,
+         s.from_date,
+         s.to_date
+         FROM employees e
+         JOIN salaries s ON e.emp_no = s.emp_no
+         ORDER BY s.salary DESC
+         LIMIT 10;
+END
+
+CALL top_10_paid_employees();
+
+-- generate a stored procedure to get the employee data along with salary details based on employee number supplied as a parameter
+CREATE PROCEDURE get_employee_salary_details(IN emp_no INT)
+  BEGIN
+    SELECT e.emp_no,
+          e.birth_date,
+          e.first_name,
+          e.last_name,
+          s.salary,
+          s.from_date,
+          s.to_date
+          FROM employees e
+          JOIN salaries s ON e.emp_no = s.emp_no
+          WHERE e.emp_no = emp_no
+          LIMIT 10;
+  END
+
+CALL get_employee_salary_details(10004);
+
+
+
+
+
